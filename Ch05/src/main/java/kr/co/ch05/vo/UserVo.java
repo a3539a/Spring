@@ -7,7 +7,14 @@ public class UserVo {
 	private String hp;
 	private String pos;
 	private int dep;
+	private String rdate;
 	
+	public String getRdate() {
+		return rdate;
+	}
+	public void setRdate(String rdate) {
+		this.rdate = rdate;
+	}
 	public String getPos() {
 		return pos;
 	}

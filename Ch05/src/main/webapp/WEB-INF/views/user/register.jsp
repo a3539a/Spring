@@ -10,7 +10,7 @@
 	<a href="/ch05/user/list">직원목록</a>
 	
 	<h4>직원등록</h4>
-	<form action="/Ch05/user/register" method="post">
+	<form action="/ch05/user/register" method="post">
 		<table border="1">
 			<tr>
 				<td>아이디</td>
