@@ -7,5 +7,9 @@
 	<insert id="INSERT_USER">
 		INSERT INTO `USER` VALUES (#{uid}, #{name}, #{hp}, #{pos}, #{dep}, NOW());
 	</insert>
-
+	
+	<select id="SELECT_USERS" resultType="kr.co.ch05.vo.UserVo">
+		SELECT * FROM `USER`;
+	</select>
+		
 </mapper>

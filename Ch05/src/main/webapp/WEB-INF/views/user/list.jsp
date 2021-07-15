@@ -8,7 +8,7 @@
 
 </head>
 <body>
-	<a href="/Ch08/user/register.do">직원등록</a>
+	<a href="/ch05/user/register">직원등록</a>
 	
 	<h4>직원목록</h4>
 	<table border="1">
@@ -21,6 +21,21 @@
 			<th>입사일</th>
 			<th>관리</th>
 		</tr>
+		
+		<c:forEach var="user" items="${users}">
+		<tr>
+			<td>${user.uid}</td>
+			<td>${user.name}</td>
+			<td>${user.hp}</td>
+			<td>${user.pos}</td>
+			<td>${user.dep}</td>
+			<td>${user.rdate.substring(2,10)}</td>
+			<td>
+				<a href="#">수정</a>
+				<a href="#">삭제</a>
+			</td>
+		</tr>
+		</c:forEach>
 	</table>
 	<a href="/ch05/user/list">User List</a>
 	<a href="/ch05/user/register">User Register</a>

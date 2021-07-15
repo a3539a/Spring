@@ -1,8 +1,11 @@
 package kr.co.ch05.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -16,7 +19,13 @@ public class UserController {
 	private UserService service;
 	
 	@GetMapping("/user/list")
-	public String list() {
+	public String list(Model model) {
+		
+		List<UserVo> users = service.selectUsers();
+		
+		// 공유객체 model로 view에서 users를 참조
+		model.addAttribute("users", users);
+		
 		return "/user/list";
 	}
 
