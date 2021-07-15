@@ -31,7 +31,7 @@
 			<td>${user.dep}</td>
 			<td>${user.rdate.substring(2,10)}</td>
 			<td>
-				<a href="#">수정</a>
+				<a href="/ch05/user/modify?uid=${user.uid}">수정</a>
 				<a href="/ch05/user/delete?uid=${user.uid}">삭제</a>
 			</td>
 		</tr>

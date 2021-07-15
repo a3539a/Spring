@@ -7,22 +7,22 @@
 
 </head>
 <body>
-	<a href="/Ch08/user/list.do">직원목록</a>
+	<a href="/ch05/user/list">직원목록</a>
 	
 	<h4>직원수정</h4>
-	<form action="/Ch08/user/modify.do" method="post">
+	<form action="/ch05/user/modify" method="post">
 		<table border="1">
 			<tr>
 				<td>아이디</td>
-				<td><input type="text" name="uid" readonly></td>
+				<td><input type="text" name="uid" value="${user.uid}" readonly></td>
 			</tr>
 			<tr>
 				<td>이름</td>
-				<td><input type="text" name="name"></td>
+				<td><input type="text" name="name" value="${user.name}"></td>
 			</tr>
 			<tr>
 				<td>휴대폰</td>
-				<td><input type="tel" name="hp"></td>
+				<td><input type="tel" name="hp" value="${user.hp}"></td>
 			</tr>
 			<tr>
 				<td>직급</td>

@@ -18,13 +18,17 @@ public class UserDao {
 		mybatis.insert("mapper.user.INSERT_USER", vo);
 	}
 	
-	public void selecttUser() {}
+	public UserVo selecttUser(String uid) {
+		return mybatis.selectOne("mapper.user.SELECT_USER", uid);
+	}
 	
 	public List<UserVo> selectUsers() {
 		return mybatis.selectList("mapper.user.SELECT_USERS");
 	}
 	
-	public void updateUser() {}
+	public void updateUser(UserVo vo) {
+		mybatis.update("mapper.user.UPDATE_USER", vo);
+	}
 	
 	public void deleteUser(String uid) {
 		mybatis.delete("mapper.user.DELETE_USER", uid);

@@ -18,13 +18,17 @@ public class UserService {
 		dao.insertUser(vo);
 	}
 	
-	public void selecttUser() {}
+	public UserVo selecttUser(String uid) {
+		return dao.selecttUser(uid);
+	}
 	
 	public List<UserVo> selectUsers() {
 		return dao.selectUsers();
 	}
 	
-	public void updateUser() {}
+	public void updateUser(UserVo vo) {
+		dao.updateUser(vo);
+	}
 	
 	public void deleteUser(String uid) {
 		dao.deleteUser(uid);

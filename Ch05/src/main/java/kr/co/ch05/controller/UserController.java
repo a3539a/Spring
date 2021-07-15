@@ -43,8 +43,21 @@ public class UserController {
 	}
 	
 	@GetMapping("/user/modify")
-	public String modify() {
+	public String modify(String uid, Model model) {
+		
+		UserVo user = service.selecttUser(uid);
+		
+		model.addAttribute("user", user);
+		
 		return "/user/modify";
+	}	
+	
+	@PostMapping("/user/modify")
+	public String modify(UserVo vo) {
+		
+		service.updateUser(vo);
+		
+		return "redirect:/user/list";
 	}
 	
 	@GetMapping("/user/delete")

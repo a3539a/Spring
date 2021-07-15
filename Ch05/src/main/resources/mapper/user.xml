@@ -8,12 +8,28 @@
 		INSERT INTO `USER` VALUES (#{uid}, #{name}, #{hp}, #{pos}, #{dep}, NOW());
 	</insert>
 	
+	<select id="SELECT_USER" resultType="kr.co.ch05.vo.UserVo">
+	SELECT * FROM `USER` WHERE `uid`=#{uid};
+	</select>
+	
 	<select id="SELECT_USERS" resultType="kr.co.ch05.vo.UserVo">
 		SELECT * FROM `USER`;
 	</select>
+		
+	<update id="UPDATE_USER">
+		UPDATE `USER` SET 
+		`name`=#{name},
+		`hp`=#{hp},
+		`pos`=#{pos},
+		`dep`=#{dep},
+		`rdate`=NOW() 
+		WHERE 
+		`uid`=#{uid};
+	</update>
 	
 	<delete id="DELETE_USER">
 		DELETE FROM `USER` WHERE `uid`=#{uid};
 	</delete>
+
 		
 </mapper>
