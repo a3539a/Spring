@@ -32,7 +32,7 @@
 			<td>${user.rdate.substring(2,10)}</td>
 			<td>
 				<a href="#">수정</a>
-				<a href="#">삭제</a>
+				<a href="/ch05/user/delete?uid=${user.uid}">삭제</a>
 			</td>
 		</tr>
 		</c:forEach>

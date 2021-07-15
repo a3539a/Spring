@@ -46,4 +46,12 @@ public class UserController {
 	public String modify() {
 		return "/user/modify";
 	}
+	
+	@GetMapping("/user/delete")
+	public String delete(String uid) {
+		
+		service.deleteUser(uid);
+		
+		return "redirect:/user/list";
+	}
 }

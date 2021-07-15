@@ -26,6 +26,8 @@ public class UserService {
 	
 	public void updateUser() {}
 	
-	public void deleteUser() {}
+	public void deleteUser(String uid) {
+		dao.deleteUser(uid);
+	}
 	
 }

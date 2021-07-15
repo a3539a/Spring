@@ -26,6 +26,8 @@ public class UserDao {
 	
 	public void updateUser() {}
 	
-	public void deleteUser() {}
+	public void deleteUser(String uid) {
+		mybatis.delete("mapper.user.DELETE_USER", uid);
+	}
 	
 }

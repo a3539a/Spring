@@ -11,5 +11,9 @@
 	<select id="SELECT_USERS" resultType="kr.co.ch05.vo.UserVo">
 		SELECT * FROM `USER`;
 	</select>
+	
+	<delete id="DELETE_USER">
+		DELETE FROM `USER` WHERE `uid`=#{uid};
+	</delete>
 		
 </mapper>
