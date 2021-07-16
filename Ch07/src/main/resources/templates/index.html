@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+</head>
+<body>
+	<h3>[[${title}]]</h3>
+	
+	<h3 th:text="${hello}">제목</h3>
+	
+	<h4>Thymeleaf if</h4>
+	<p>
+		<a href="#" th:if="${user}">[[${user.name}]]님 반갑습니다.</a>
+		<a href="#" th:unless="${user}">Nope 돌아가 user가 없습니다.</a>
+	</p>
+	
+	<h4>Thymeleaf each(for)</h4>
+	<table border="1">
+		<tr th:each="user:${users}">
+			<td th:text="${user.uid}">hong</td>
+			<td th:text="${user.name}">홍길동</td>
+			<td th:text="${user.hp}">010-1234-4545</td>
+			<td th:text="${user.dep}">101</td>
+			<td th:text="${user.pos}">101</td>
+			<td th:text="${user.rdate}">101</td>
+		</tr>
+	</table>
+	
+</body>
+</html>
