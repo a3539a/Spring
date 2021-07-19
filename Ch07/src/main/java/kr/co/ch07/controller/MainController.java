@@ -40,4 +40,21 @@ public class MainController {
 		
 		return "/index";
 	}
+	
+	@GetMapping("/include")
+	public String include() {
+		return "/include";
+	}
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
