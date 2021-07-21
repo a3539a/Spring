@@ -1,5 +1,7 @@
 package kr.co.kmarket.vo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -37,4 +39,11 @@ public class ProductVo {
 	private String etc3;
 	private String etc4;
 	private String etc5;
+	
+	// 추가필드
+	private MultipartFile file1;
+	private MultipartFile file2;
+	private MultipartFile file3;
+	private MultipartFile file4;
+	
 }
