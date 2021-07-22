@@ -22,4 +22,16 @@ public class MainService {
 	public List<ProductVo> selectHitProduct() {
 		return dao.selectHitProduct();
 	}
+	
+	public List<ProductVo> selectScoreProduct() {
+		return dao.selectScoreProduct();
+	}	
+	
+	public List<ProductVo> selectRdateProduct() {
+		return dao.selectRdateProduct();
+	}
+	
+	public List<ProductVo> selectDiscountProduct() {
+		return dao.selectDiscountProduct();
+	}
 }
