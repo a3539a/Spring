@@ -29,19 +29,19 @@
 	</select>
 	
 	<select id="selectHitProduct" resultType="kr.co.kmarket.vo.ProductVo">
-		SELECT * FROM `km_product` ORDER BY `hit` DESC LIMIT 8;
+		SELECT *, Floor(price * (1 - discount / 100)) AS `salePrice` FROM `km_product` ORDER BY `hit` DESC LIMIT 8;
 	</select>	
 	
-	<select id="selectScoreProduct" resultType="kr.co.kmarket.vo.ProductVo">
-		SELECT * FROM `km_product` ORDER BY `score`, `rdate` DESC LIMIT 8;
+	<select id="selectRecommandProduct" resultType="kr.co.kmarket.vo.ProductVo">
+		SELECT *, Floor(price * (1 - discount / 100)) AS `salePrice` FROM `km_product` ORDER BY `score`, `rdate` DESC LIMIT 8;
 	</select>
 	
-	<select id="selectRdateProduct" resultType="kr.co.kmarket.vo.ProductVo">
-		SELECT * FROM `km_product` ORDER BY `rdate` DESC LIMIT 8;
+	<select id="selectLatestProduct" resultType="kr.co.kmarket.vo.ProductVo">
+		SELECT *, Floor(price * (1 - discount / 100)) AS `salePrice` FROM `km_product` ORDER BY `rdate` DESC LIMIT 8;
 	</select>
 		
 	<select id="selectDiscountProduct" resultType="kr.co.kmarket.vo.ProductVo">
-		SELECT * FROM `km_product` ORDER BY `discount` DESC LIMIT 8;
+		SELECT *, Floor(price * (1 - discount / 100)) AS `salePrice` FROM `km_product` ORDER BY `discount` DESC LIMIT 8;
 	</select>
 	
 </mapper>

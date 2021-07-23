@@ -23,16 +23,10 @@ public class MainController {
 	public String index(Model model) {
 		
 		List<ProductVo> productHit = service.selectHitProduct();
+		List<ProductVo> productRecommand = service.selectRecommandProduct();
+		
 		model.addAttribute("productHit", productHit);
-		
-		List<ProductVo> productScore = service.selectScoreProduct();
-		model.addAttribute("productScore", productScore);	
-		
-		List<ProductVo> productRdate = service.selectRdateProduct();
-		model.addAttribute("productRdate", productRdate);
-		
-		List<ProductVo> productDiscount = service.selectDiscountProduct();
-		model.addAttribute("productDiscount", productDiscount);
+		model.addAttribute("productRecommand", productRecommand);	
 		
 		return "/index";
 	}
@@ -42,5 +36,19 @@ public class MainController {
 	@GetMapping("/categories")
 	public List<CategoriesVo> getCategories() {
 		return service.selectCategories();
+	}
+	
+	@ResponseBody
+	@GetMapping("/getLatestProduct")
+	public List<ProductVo> getLatestProduct() {
+		
+		return service.selectLatestProduct();
+	}	
+	
+	@ResponseBody
+	@GetMapping("/getDiscountProduct")
+	public List<ProductVo> getDiscountProduct() {
+		
+		return service.selectDiscountProduct();
 	}
 }

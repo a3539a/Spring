@@ -14,9 +14,9 @@ public interface MainDao {
 	
 	public List<ProductVo> selectHitProduct();
 	
-	public List<ProductVo> selectScoreProduct();
+	public List<ProductVo> selectRecommandProduct();
 	
-	public List<ProductVo> selectRdateProduct();
+	public List<ProductVo> selectLatestProduct();
 	
 	public List<ProductVo> selectDiscountProduct();
 	

@@ -46,4 +46,6 @@ public class ProductVo {
 	private MultipartFile file3;
 	private MultipartFile file4;
 	
+	// 할인가격 필드
+	private int salePrice;
 }
