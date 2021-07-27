@@ -37,8 +37,8 @@
 					li태그내용(Cate2Vo의 title)을 넣어준다.
 				*/
 				$.each(data.cate2List, function(j, vo){
-					
-					$('.category ol').eq(i).append("<li><a href='#'>"+vo.title+"</a></li>");
+					// DB cate2의 코드1, 코드2 값을 참조해서 사이트 주소값으로 쓴다.(controller로 전송)
+					$('.category ol').eq(i).append("<li><a href='/Kmarket/shop/list?cate1="+vo.code1+"&cate2="+vo.code2+"'>"+vo.title+"</a></li>");
 					
 				});
 			});

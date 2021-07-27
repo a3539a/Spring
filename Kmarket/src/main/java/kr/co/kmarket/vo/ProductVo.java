@@ -40,7 +40,7 @@ public class ProductVo {
 	private String etc4;
 	private String etc5;
 	
-	// 추가필드
+	// 추가필드(이미지)
 	private MultipartFile file1;
 	private MultipartFile file2;
 	private MultipartFile file3;
@@ -48,4 +48,8 @@ public class ProductVo {
 	
 	// 할인가격 필드
 	private int salePrice;
+	
+	// 카테고리 이름 필드
+	private String tit1;
+	private String tit2;
 }

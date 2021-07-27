@@ -1,11 +1,20 @@
 package kr.co.kmarket.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import kr.co.kmarket.service.ShopService;
+import kr.co.kmarket.vo.ProductVo;
 
 @Controller
 public class ShopController {
 
+	@Autowired
+	private ShopService service;
 	
 	@GetMapping("/shop/cart")
 	public String cart() {
@@ -13,7 +22,16 @@ public class ShopController {
 	}	
 	
 	@GetMapping("/shop/list")
-	public String list() {
+	public String list(Model model, int cate1, int cate2, String sort) {
+		
+		ProductVo titles = service.selectTitles(cate1, cate2);
+		List<ProductVo> products = service.selectProducts(cate1, cate2, sort);
+		
+		model.addAttribute("titles", titles);
+		model.addAttribute("cate1", cate1);
+		model.addAttribute("cate2", cate2);
+		model.addAttribute("products", products);
+		
 		return "/shop/list";
 	}	
 	
@@ -33,7 +51,12 @@ public class ShopController {
 	}	
 	
 	@GetMapping("/shop/view")
-	public String view() {
+	public String view(int code, Model model) {
+		
+		ProductVo product = service.selectProduct(code);
+		
+		model.addAttribute("product", product);
+		
 		return "/shop/view";
 	}
 }

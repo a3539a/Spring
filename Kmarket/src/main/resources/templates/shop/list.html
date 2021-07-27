@@ -1,319 +1,80 @@
 <th:block th:include="@{_header.html}"/>
 <main>
-    <!-- ƒ´≈◊∞Ì∏Æ/∫£Ω∫∆Æ ªÛ«∞ øµø™ -->
+    <!-- Ïπ¥ÌÖåÍ≥†Î¶¨/Î≤†Ïä§Ìä∏ ÏÉÅÌíà ÏòÅÏó≠ -->
     <aside>
-		<th:block th:include="@{_category.html}"/>
+        <th:block th:include="@{_category.html}"/>
     </aside>
 
-    <!-- ªÛ«∞∏Ò∑œ -->
+    <!-- ÏÉÅÌíàÎ™©Î°ù -->
     <section id="list">
       
-      <!-- ¡¶∏Ò, ∆‰¿Ã¡ˆ ≥◊∫Ò∞‘¿Ãº« -->
+      <!-- Ï†úÎ™©, ÌéòÏù¥ÏßÄ ÎÑ§ÎπÑÍ≤åÏù¥ÏÖò -->
       <nav>
-        <h1>≥≤º∫¿«∑˘ ªÛ«∞∏ÆΩ∫∆Æ</h1>
+      	<!--/* ÌÉÄÏûÑÎ¶¨ÌîÑ ÌÉúÍ∑∏Î∞ñÏóêÏÑú Îç∞Ïù¥ÌÑ∞ Î∂àÎü¨Ïò§Í∏∞ : [[${modelÎ™Ö.dbÏª¨Îüº}]] */-->
+        <h1>[[${titles.tit2}]] ÏÉÅÌíàÎ¶¨Ïä§Ìä∏</h1>
         <p>
-          HOME > <span>∆–º«°§¿«∑˘°§∫‰∆º</span> > <strong>≥≤º∫¿«∑˘</strong>
+          HOME > <span>[[${titles.tit1}]]</span> > <strong>[[${titles.tit2}]]</strong>
         </p>
       </nav>
 
-      <!-- ¡§∑ƒπÊΩƒ ∏µ≈© -->
+      <!-- Ï†ïÎ†¨Î∞©Ïãù ÎßÅÌÅ¨ -->
       <ul class="sort">
-          <li><a href="#">∆«∏≈∏π¿∫º¯</a></li>
-          <li><a href="#">≥∑¿∫∞°∞›º¯</a></li>
-          <li><a href="#">≥Ù¿∫∞°∞›º¯</a></li>
-          <li><a href="#">∆Ú¡°≥Ù¿∫º¯</a></li>
-          <li><a href="#">»ƒ±‚∏π¿∫º¯</a></li>
-          <li><a href="#">√÷±ŸµÓ∑œº¯</a></li>
+      	  <!--/* th:href="@{Í≤ΩÎ°ú(ÌïÑÏöîÍ∞í=${Î™®Îç∏})}" */-->
+          <li><a th:href="@{/shop/list(cate1=${cate1}, cate2=${cate2}, sort=1)}">ÌåêÎß§ÎßéÏùÄÏàú</a></li>
+          <li><a th:href="@{/shop/list(cate1=${cate1}, cate2=${cate2}, sort=2)}">ÎÇÆÏùÄÍ∞ÄÍ≤©Ïàú</a></li>
+          <li><a th:href="@{/shop/list(cate1=${cate1}, cate2=${cate2}, sort=3)}">ÎÜíÏùÄÍ∞ÄÍ≤©Ïàú</a></li>
+          <li><a th:href="@{/shop/list(cate1=${cate1}, cate2=${cate2}, sort=4)}">ÌèâÏ†êÎÜíÏùÄÏàú</a></li>
+          <li><a th:href="@{/shop/list(cate1=${cate1}, cate2=${cate2}, sort=5)}">ÌõÑÍ∏∞ÎßéÏùÄÏàú</a></li>
+          <li><a th:href="@{/shop/list(cate1=${cate1}, cate2=${cate2}, sort=6)}">ÏµúÍ∑ºÎì±Î°ùÏàú</a></li>
       </ul>
 
-      <!-- ªÛ«∞∏Ò∑œ 10∞≥ -->
+      <!-- ÏÉÅÌíàÎ™©Î°ù 10Í∞ú -->
       <section>
-        <article>
+      	<!-- th:each : ÌÉÄÏûÑÎ¶¨ÌîÑ Î∞òÎ≥µÎ¨∏ -->
+        <article th:each="product:${products}">
           <ul>
             <li>
-              <a href="#" class="thumb"><img src="../img/thumb-sample-t1.jpg" alt="ªÛ«∞¿ÃπÃ¡ˆ"/></a>
+              	<a th:href="@{/shop/view(code=${product.code})}" class="thumb">
+              		<img th:src="@{/thumb/{c1}/{c2}/{img}(c1=${product.cate1}, c2=${product.cate2}, img=${product.thumb2})}" alt="ÏÉÅÌíàÏù¥ÎØ∏ÏßÄ"/>
+           		</a>
             </li>
             <li>
-              <h3 class="name">FreeMovement BLUEFORCE</h3>
+              <h3 class="name">
+              	<a th:href="@{/shop/view(code=${product.code})}" class="thumb">[[${product.name}]]</a>
+           	  </h3>
               <p class="desc">
-                <a href="#">[∫Ì∑Á∆˜Ω∫] ø©∏ßΩ≈ªÛ ≥≤πÊ/º÷∏ÆµÂ±‰∆»≥≤¿⁄ø /µ•¥‘√ª/√º≈©Ω∫∆«º≈√˜</a>
+                <a href="#">[[${product.descript}]]</a>
               </p>
             </li>
             <li>
               <div class="dis_price">
-                <ins>27,000</ins>
+                <ins>[[${#numbers.formatInteger(product.salePrice, 0, 'COMMA')}]]</ins>
+
               </div>
               <div class="org_price">
-                <del>30,000</del>
-                <span>10%</span>
+                <del>[[${#numbers.formatInteger(product.price, 0, 'COMMA')}]]</del>
+               	<span>[[${product.discount}]]%</span>
               </div>
-              <span class="freeshipping">π´∑·πËº€</span>
+                <span th:if="${product.delivery} == 0" class="freeshipping">Î¨¥Î£åÎ∞∞ÏÜ°</span>
+             	<span th:if="${product.delivery} != 0">Î∞∞ÏÜ°ÎπÑ [[${#numbers.formatInteger(product.delivery, 0, 'COMMA')}]]Ïõê</span>
             </li>
             <li>
-              <h4 class="seller"><i class="fas fa-home"></i>&nbsp;∫Ì∑Á∆˜Ω∫</h4>
-              <h5 class="badge power">∆«∏≈¿⁄µÓ±ﬁ</h5>
-              <h6 class="rating star1">ªÛ«∞∆Ú</h6>
-            </li>
-          </ul>
-        </article>
-        <article>
-          <ul>
-            <li>
-              <a href="#" class="thumb"><img src="../img/thumb-sample-t2.jpg" alt="ªÛ«∞¿ÃπÃ¡ˆ"/></a>
-            </li>
-            <li>
-              <h3 class="name">ªÛ«∞∏Ì</h3>
-              <p class="desc">
-                <a href="#">ªÛ«∞º≥∏Ì</a>
-              </p>
-            </li>
-            <li>
-              <div class="dis_price">
-                <ins>27,000</ins>
-              </div>
-              <div class="org_price">
-                <del>30,000</del>
-                <span>10%</span>
-              </div>
-              <span class="freeshipping">π´∑·πËº€</span>
-            </li>
-            <li>
-              <h4 class="seller"><i class="fas fa-home"></i>&nbsp;∆«∏≈¿⁄ªÛ¡°∏Ì</h4>
-              <h5 class="badge great">∆«∏≈¿⁄µÓ±ﬁ</h5>
-              <h6 class="rating star2">ªÛ«∞∆Ú</h6>
-            </li>
-          </ul>
-        </article>
-        <article>
-          <ul>
-            <li>
-              <a href="#" class="thumb"><img src="../img/thumb-sample-t3.jpg" alt="ªÛ«∞¿ÃπÃ¡ˆ"/></a>
-            </li>
-            <li>
-              <h3 class="name">ªÛ«∞∏Ì</h3>
-              <p class="desc">
-                <a href="#">ªÛ«∞º≥∏Ì</a>
-              </p>
-            </li>
-            <li>
-              <div class="dis_price">
-                <ins>27,000</ins>
-              </div>
-              <div class="org_price">
-                <del>30,000</del>
-                <span>10%</span>
-              </div>
-              <span class="freeshipping">π´∑·πËº€</span>
-            </li>
-            <li>
-              <h4 class="seller"><i class="fas fa-home"></i>&nbsp;∆«∏≈¿⁄ªÛ¡°∏Ì</h4>
-              <h5 class="badge power great">∆«∏≈¿⁄µÓ±ﬁ</h5>
-              <h6 class="rating star3">ªÛ«∞∆Ú</h6>
-            </li>
-          </ul>
-        </article>
-        <article>
-          <ul>
-            <li>
-              <a href="#" class="thumb"><img src="../img/thumb-sample-t4.jpg" alt="ªÛ«∞¿ÃπÃ¡ˆ"/></a>
-            </li>
-            <li>
-              <h3 class="name">ªÛ«∞∏Ì</h3>
-              <p class="desc">
-                <a href="#">ªÛ«∞º≥∏Ì</a>
-              </p>
-            </li>
-            <li>
-              <div class="dis_price">
-                <ins>27,000</ins>
-              </div>
-              <div class="org_price">
-                <del>30,000</del>
-                <span>10%</span>
-              </div>
-              <span class="freeshipping">π´∑·πËº€</span>
-            </li>
-            <li>
-              <h4 class="seller"><i class="fas fa-home"></i>&nbsp;∆«∏≈¿⁄ªÛ¡°∏Ì</h4>
-              <h5 class="badge power great">∆«∏≈¿⁄µÓ±ﬁ</h5>
-              <h6 class="rating star4">ªÛ«∞∆Ú</h6>
-            </li>
-          </ul>
-        </article>
-        <article>
-          <ul>
-            <li>
-              <a href="#" class="thumb"><img src="../img/thumb-sample-t5.jpg" alt="ªÛ«∞¿ÃπÃ¡ˆ"/></a>
-            </li>
-            <li>
-              <h3 class="name">ªÛ«∞∏Ì</h3>
-              <p class="desc">
-                <a href="#">ªÛ«∞º≥∏Ì</a>
-              </p>
-            </li>
-            <li>
-              <div class="dis_price">
-                <ins>27,000</ins>
-              </div>
-              <div class="org_price">
-                <del>30,000</del>
-                <span>10%</span>
-              </div>
-              <span class="freeshipping">π´∑·πËº€</span>
-            </li>
-            <li>
-              <h4 class="seller"><i class="fas fa-home"></i>&nbsp;∆«∏≈¿⁄ªÛ¡§∏Ì</h4>
-              <h5 class="badge power great">∆«∏≈¿⁄µÓ±ﬁ</h5>
-              <h6 class="rating star5">ªÛ«∞∆Ú</h6>
-            </li>
-          </ul>
-        </article>
-        <article>
-          <ul>
-            <li>
-              <a href="#" class="thumb"><img src="../img/thumb-sample-t5.jpg" alt="ªÛ«∞¿ÃπÃ¡ˆ"/></a>
-            </li>
-            <li>
-              <h3 class="name">ªÛ«∞∏Ì</h3>
-              <p class="desc">
-                <a href="#">ªÛ«∞º≥∏Ì</a>
-              </p>
-            </li>
-            <li>
-              <div class="dis_price">
-                <ins>27,000</ins>
-              </div>
-              <div class="org_price">
-                <del>30,000</del>
-                <span>10%</span>
-              </div>
-              <span class="freeshipping">π´∑·πËº€</span>
-            </li>
-            <li>
-              <h4 class="seller"><i class="fas fa-home"></i>&nbsp;∆«∏≈¿⁄ªÛ¡°∏Ì</h4>
-              <h5 class="badge power great">∆«∏≈¿⁄µÓ±ﬁ</h5>
-              <h6 class="rating star5">ªÛ«∞∆Ú</h6>
-            </li>
-          </ul>
-        </article>
-        <article>
-          <ul>
-            <li>
-              <a href="#" class="thumb"><img src="../img/thumb-sample-t5.jpg" alt="ªÛ«∞¿ÃπÃ¡ˆ"/></a>
-            </li>
-            <li>
-              <h3 class="name">ªÛ«∞∏Ì</h3>
-              <p class="desc">
-                <a href="#">ªÛ«∞º≥∏Ì</a>
-              </p>
-            </li>
-            <li>
-              <div class="dis_price">
-                <ins>27,000</ins>
-              </div>
-              <div class="org_price">
-                <del>30,000</del>
-                <span>10%</span>
-              </div>
-              <span class="freeshipping">π´∑·πËº€</span>
-            </li>
-            <li>
-              <h4 class="seller"><i class="fas fa-home"></i>&nbsp;∆«∏≈¿⁄ªÛ¡°∏Ì</h4>
-              <h5 class="badge power great">∆«∏≈¿⁄µÓ±ﬁ</h5>
-              <h6 class="rating star5">ªÛ«∞∆Ú</h6>
-            </li>
-          </ul>
-        </article>
-        <article>
-          <ul>
-            <li>
-              <a href="#" class="thumb"><img src="../img/thumb-sample-t5.jpg" alt="ªÛ«∞¿ÃπÃ¡ˆ"/></a>
-            </li>
-            <li>
-              <h3 class="name">ªÛ«∞∏Ì</h3>
-              <p class="desc">
-                <a href="#">ªÛ«∞º≥∏Ì</a>
-              </p>
-            </li>
-            <li>
-              <div class="dis_price">
-                <ins>27,000</ins>
-              </div>
-              <div class="org_price">
-                <del>30,000</del>
-                <span>10%</span>
-              </div>
-              <span class="freeshipping">π´∑·πËº€</span>
-            </li>
-            <li>
-              <h4 class="seller"><i class="fas fa-home"></i>&nbsp;∆«∏≈¿⁄ªÛ¡°∏Ì</h4>
-              <h5 class="badge power great">∆«∏≈¿⁄µÓ±ﬁ</h5>
-              <h6 class="rating star5">ªÛ«∞∆Ú</h6>
-            </li>
-          </ul>
-        </article>
-        <article>
-          <ul>
-            <li>
-              <a href="#" class="thumb"><img src="../img/thumb-sample-t5.jpg" alt="ªÛ«∞¿ÃπÃ¡ˆ"/></a>
-            </li>
-            <li>
-              <h3 class="name">ªÛ«∞∏Ì</h3>
-              <p class="desc">
-                <a href="#">ªÛ«∞º≥∏Ì</a>
-              </p>
-            </li>
-            <li>
-              <div class="dis_price">
-                <ins>27,000</ins>
-              </div>
-              <div class="org_price">
-                <del>30,000</del>
-                <span>10%</span>
-              </div>
-              <span class="freeshipping">π´∑·πËº€</span>
-            </li>
-            <li>
-              <h4 class="seller"><i class="fas fa-home"></i>&nbsp;∆«∏≈¿⁄ªÛ¡°∏Ì</h4>
-              <h5 class="badge power great">∆«∏≈¿⁄µÓ±ﬁ</h5>
-              <h6 class="rating star5">ªÛ«∞∆Ú</h6>
-            </li>
-          </ul>
-        </article>
-        <article>
-          <ul>
-            <li>
-              <a href="#" class="thumb"><img src="../img/thumb-sample-t5.jpg" alt="ªÛ«∞¿ÃπÃ¡ˆ"/></a>
-            </li>
-            <li>
-              <h3 class="name">ªÛ«∞∏Ì</h3>
-              <p class="desc">
-                <a href="#">ªÛ«∞º≥∏Ì</a>
-              </p>
-            </li>
-            <li>
-              <div class="dis_price">
-                <ins>27,000</ins>
-              </div>
-              <div class="org_price">
-                <del>30,000</del>
-                <span>10%</span>
-              </div>
-              <span class="freeshipping">π´∑·πËº€</span>
-            </li>
-            <li>
-              <h4 class="seller"><i class="fas fa-home"></i>&nbsp;∆«∏≈¿⁄ªÛ¡°∏Ì</h4>
-              <h5 class="badge power great">∆«∏≈¿⁄µÓ±ﬁ</h5>
-              <h6 class="rating star5">ªÛ«∞∆Ú</h6>
+              <h4 class="seller"><i class="fas fa-home"></i>&nbsp;[[${product.company}]]</h4>
+              <h5 class="badge power">ÌåêÎß§ÏûêÎì±Í∏â</h5>
+              <h6 th:if="${product.score == 1}" class="rating star1">ÏÉÅÌíàÌèâ</h6>
+              <h6 th:if="${product.score == 2}" class="rating star2">ÏÉÅÌíàÌèâ</h6>
+              <h6 th:if="${product.score == 3}" class="rating star3">ÏÉÅÌíàÌèâ</h6>
+              <h6 th:if="${product.score == 4}" class="rating star4">ÏÉÅÌíàÌèâ</h6>
+              <h6 th:if="${product.score == 5}" class="rating star5">ÏÉÅÌíàÌèâ</h6>
             </li>
           </ul>
         </article>
       </section>
 
-      <!-- ªÛ«∞∏Ò∑œ ∆‰¿Ã¡ˆπ¯»£ -->
+      <!-- ÏÉÅÌíàÎ™©Î°ù ÌéòÏù¥ÏßÄÎ≤àÌò∏ -->
       <div class="paging">
         <span class="prev">
-          <a href="#"><&nbsp;¿Ã¿¸</a>
+          <a href="#"><&nbsp;Ïù¥Ï†Ñ</a>
         </span>
         <span class="num">
           <a href="#" class="on">1</a>
@@ -325,7 +86,7 @@
           <a href="#">7</a>
         </span>
         <span class="next">
-          <a href="#">¥Ÿ¿Ω&nbsp;></a>
+          <a href="#">Îã§Ïùå&nbsp;></a>
         </span>
       </div>
 
