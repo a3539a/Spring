@@ -38,4 +38,22 @@
 		WHERE `code`=#{code};
 	</select>
 	
+	<select id="selectCountCart" resultType="int">
+		SELECT COUNT(`code`) FROM `km_product_cart` WHERE `code`=#{code} AND `uid`=#{uid}; 
+	</select>
+	
+	<insert id="insertCart">
+		INSERT INTO `km_product_cart` SET
+			`uid`	  =#{uid},
+			`code`	  =#{code},
+			`name`	  =#{name},
+			`count`	  =#{count},
+			`price`	  =#{price},
+			`discount`=#{discount},
+			`point`	  =#{point},
+			`delivery`=#{delivery},
+			`total`	  =#{total},
+			`rdate`	  =NOW();
+	</insert>
+	
 </mapper>

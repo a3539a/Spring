@@ -1,4 +1,50 @@
 <th:block th:include="@{_header.html}"/>
+<!--/* th:inline="javascript" 스크립트에 타임리프 속성 사용 */-->
+<script th:inline="javascript">
+	$(function(){
+		
+		// 장바구니 버튼 클릭
+		$('input.cart').click(function(){
+			
+			var product = [[${product}]];
+			var count = 1;
+			var total = parseInt((product.price * count) * (1 - product.discount / 100));
+			
+			var jsonData = {
+				'code'	  : product.code,
+				'name'	  : product.name,
+				'count'	  : count,
+				'price'	  : product.price,
+				'discount': product.discount,
+				'point'	  : product.point,
+				'delivery': product.delivery,
+				'total'	  : total
+			}
+			
+			$.ajax({
+				url: '/Kmarket/shop/cart',
+				type: 'post',
+				data: jsonData,
+				dataType: 'json',
+				success: function(data){
+					if(data.result == 1){
+						alert('장바구니 상품 추가');
+					}else if(data.result == 2){
+						alert('먼저 로그인 해라');
+					}else if(data.result == 3){
+						alert('이미 상품이 있습니다.');
+					}
+				}
+			});
+			
+		});	
+		
+		// 구매하기 버튼 클릭
+		$('input.order').click(function(){});
+		
+	});
+</script>
+
 <main>
 	<!-- 카테고리/베스트 상품 영역 -->
 	<aside>
