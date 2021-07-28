@@ -125,7 +125,6 @@
 			
 			var checkedProducts = $('input[name=checkProduct]:checked');
 			
-			var uid   = [[${session.sessMember.uid}]];
 			var codes = [];
 			
 			checkedProducts.each(function(i, product){
@@ -134,7 +133,6 @@
 			
 			var jsonData = {
 					'codes' : codes,
-					'uid'   : uid
 				};
 			
 			$.ajax({
