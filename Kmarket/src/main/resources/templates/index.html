@@ -32,7 +32,7 @@
 						// 아티클 태그 부분 복사
 						var article = sectionHit.find('article:last-child').clone();
 						// 태그명 찾아서 ProductVo에 있는 내용으로 교체
-						article.find('> a').attr('href', '/Kmarket/shop/view');
+						article.find('> a').attr('href', '/Kmarket/shop/view?code='+data.code);
 						article.find('.thumb > img').attr('src', '/Kmarket/thumb/'+data.cate1+'/'+data.cate2+'/'+data.thumb1);
 						article.find('h2').text(data.name);
 						article.find('p').text(data.descript);
@@ -65,7 +65,7 @@
 						// 아티클 태그 부분 복사
 						var article = sectionHit.find('article:last-child').clone();
 						// 태그명 찾아서 ProductVo에 있는 내용으로 교체
-						article.find('> a').attr('href', '/Kmarket/shop/view');
+						article.find('> a').attr('href', '/Kmarket/shop/view?code='+data.code);
 						article.find('.thumb > img').attr('src', '/Kmarket/thumb/'+data.cate1+'/'+data.cate2+'/'+data.thumb1);
 						article.find('h2').text(data.name);
 						article.find('p').text(data.descript);
@@ -212,7 +212,7 @@
             <h3><span>히트상품</span></h3>
             <!-- Thymeleaf 태그 명령어 반복문 사용(th:each="내부에 쓸 명칭:${모델로 받은 정보}") -->
             <article th:each="product:${productHit}">
-                <a href="#">
+                <a th:href="@{/shop/view(code=${product.code})}">
                     <div class="thumb">
                       <img th:src="@{/thumb/{c1}/{c2}/{img}(c1=${product.cate1}, c2=${product.cate2}, img=${product.thumb1})}" alt="t1">
                     </div>
@@ -235,7 +235,7 @@
             <h3><span>추천상품</span></h3>
             <!-- Thymeleaf 태그 명령어 반복문 사용(th:each="내부에 쓸 명칭:${모델로 받은 정보}") -->
             <article th:each="product:${productRecommand}">
-                <a href="#">
+                <a th:href="@{/shop/view(code=${product.code})}">
                     <div class="thumb">
                     	<!-- 파일 경로는 DB(ProductVo)의 cate1값과 cate2값 thumb명칭(UUID)필요 -->
                       	<img th:src="@{thumb/{c1}/{c2}/{img}(c1=${product.cate1}, c2=${product.cate2}, img=${product.thumb1})}" alt="t2">
@@ -244,7 +244,7 @@
                     <p>[[${product.descript}]]</p>
                     <div class="org_price">
                       <del>[[${#numbers.formatInteger(product.price, 0, 'COMMA')}]]</del>
-                      <span>[[${product.discount}]]</span>
+                      <span>[[${product.discount}]]%</span>
                     </div>
                     <div class="dis_price">
                       <ins>[[${#numbers.formatInteger(product.salePrice, 0, 'COMMA')}]]</ins>

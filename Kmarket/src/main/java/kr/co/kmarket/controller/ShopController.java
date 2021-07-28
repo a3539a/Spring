@@ -17,6 +17,7 @@ import com.google.gson.JsonObject;
 import kr.co.kmarket.service.ShopService;
 import kr.co.kmarket.vo.CartVo;
 import kr.co.kmarket.vo.MemberVo;
+import kr.co.kmarket.vo.OrderVo;
 import kr.co.kmarket.vo.ProductVo;
 
 @Controller
@@ -24,6 +25,23 @@ public class ShopController {
 
 	@Autowired
 	private ShopService service;
+	
+	@ResponseBody
+	@PostMapping("/shop/deleteCart")
+	public String deleteCart(HttpSession sess, int[] codes) {
+		
+		MemberVo memberVo = (MemberVo) sess.getAttribute("sessMember");
+		String uid = memberVo.getUid();
+		
+		for(int code : codes) {
+			service.deleteCart(uid, code);
+		}
+		
+		JsonObject json = new JsonObject();
+		json.addProperty("result", codes.length);
+		
+		return new Gson().toJson(json);
+	}
 	
 	@GetMapping("/shop/cart")
 	public String cart(HttpSession sess, Model model) {
@@ -103,6 +121,25 @@ public class ShopController {
 	@GetMapping("/shop/order")
 	public String order() {
 		return "/shop/order";
+	}	
+	
+	@ResponseBody
+	@PostMapping("/shop/order")
+	public String order(OrderVo vo) {
+		
+		service.insertOrder(vo);
+		
+		// 최근 insert한 데이터 orderId
+		int orderId = vo.getOrderId();
+		
+		for(int code : vo.getCodes()) {
+			service.insertOrderDetail(orderId, code);
+		}
+		
+		JsonObject json = new JsonObject();
+		json.addProperty("orderId", orderId);
+		
+		return new Gson().toJson(json);
 	}
 	
 	@GetMapping("/shop/order-complete")

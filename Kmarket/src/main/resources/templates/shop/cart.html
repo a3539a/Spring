@@ -1,4 +1,215 @@
 <th:block th:include="@{_header.html}"/>
+<script th:inline="javascript">
+	
+	// 장바구니 집계 작업
+	aggrProduct();
+	
+	function aggrProduct(){
+		$(function(){
+			// 체크 된 체크박스의 tr
+			var checkedProduct = $('input[name=checkProduct]:checked').parent().parent();
+			
+			// 상품수 집계
+			var tdCounts = checkedProduct.find('.count');
+			var totCount = 0;
+			
+			$.each(tdCounts, function(){
+				// tdCount의 내용을 숫자로 변환 후 토탈카운트에 더함			
+				var count = parseInt($(this).text());
+				totCount += count;
+			});
+			// 상품 전체합계에 내용 삽입
+			$('.info tr:nth-child(1) > td:nth-child(2)').text(totCount);
+			
+			
+			// 판매가 집계
+			var tdPrices = checkedProduct.find('.price');
+			var totPrice = 0;
+			
+			$.each(tdPrices, function(){
+				// replace로 컴마 지우고 변환
+				var price = parseInt($(this).text().replace(/,/g, ''));
+				totPrice += price;
+			});
+			// 상품 전체합계에 내용 삽입										, 다시 붙이기
+			$('.info tr:nth-child(2) > td:nth-child(2)').text(totPrice.toLocaleString());
+			
+			
+			// 할인금액 집계
+			var tdDiscounts = checkedProduct.find('.discount');
+			var totDiscount = 0;
+			
+			$.each(tdDiscounts, function(){
+				var price 	 = parseInt($(this).prev().text().replace(/,/g, ''));
+				var discount = price * (parseInt($(this).text())/100);
+				totDiscount += discount;
+			});
+			// 상품 전체합계에 내용 삽입										, 다시 붙이기
+			$('.info tr:nth-child(3) > td:nth-child(2)').text(totDiscount.toLocaleString());
+			
+			// 배송비 집계
+			var tdDeliveries = checkedProduct.find('.delivery');
+			var totDelivery  = 0;
+			
+			$.each(tdDeliveries, function(){
+				// replace로 컴마 지우기
+				var delivery = $(this).text().replace(/,/g, '');
+				
+				// 텍스트는 제외
+				if(delivery != '무료배송') {
+					totDelivery += parseInt(delivery);
+				}
+			});
+			// 상품 전체합계에 내용 삽입										 , 다시 붙이기
+			$('.info tr:nth-child(4) > td:nth-child(2)').text(totDelivery.toLocaleString());
+			
+			// 포인트 집계
+			var tdPoints = checkedProduct.find('.point');
+			var totPoint = 0;
+			
+			$.each(tdPoints, function(){
+				// tdPoints의 내용을 숫자로 변환 후 토탈포인트에 더함			
+				var point = parseInt($(this).text().replace(/,/g, ''));
+				totPoint += point;
+			});
+			// 상품 전체합계에 내용 삽입
+			$('.info tr:nth-child(5) > td:nth-child(2)').text(totPoint.toLocaleString());
+			
+			// 전체주문금액 집계
+			var tdTotals = checkedProduct.find('.total');
+			var totTotal = 0;
+			
+			$.each(tdTotals, function(){
+				var total = parseInt($(this).text().replace(/,/g, ''));
+				totTotal += total;
+			});
+			// 상품 전체합계에 내용 삽입
+			$('.info tr:nth-child(6) > td:nth-child(2)').text(totTotal.toLocaleString());
+		});
+
+	}// aggrProduct end..
+	
+	// 상품 체크박스 기능
+	$(function(){
+		// 체크박스 변수 선언
+		var checkAll 	 = $('input[name=all]');
+		var checkProduct = $('input[name=checkProduct]');
+		
+		// 전체 체크
+		// change event : 상태가 바뀔때 이벤트가 일어남
+		checkAll.change(function(){
+			
+			// checkAll 이 체크가 되어있으면
+			if($(this).is(':checked')){
+				// 전체 상품 체크
+				checkProduct.prop('checked', true);
+			}else{
+				// 전체 상품 체크 해제
+				checkProduct.prop('checked', false);
+			}
+			
+			// 체크가 변할 때 집계 재조정
+			aggrProduct();
+		});
+		
+		// 개별 체크
+		checkProduct.change(function(){
+			// 체크가 변할 때 집계 재조정
+			aggrProduct();
+		});
+	});
+	
+	// 상품 삭제하기
+	$(function(){
+		$('input[name=del]').click(function(){
+			
+			var checkedProducts = $('input[name=checkProduct]:checked');
+			
+			var uid   = [[${session.sessMember.uid}]];
+			var codes = [];
+			
+			checkedProducts.each(function(i, product){
+				codes.push(product.value);
+			});
+			
+			var jsonData = {
+					'codes' : codes,
+					'uid'   : uid
+				};
+			
+			$.ajax({
+				url: '/Kmarket/shop/deleteCart',
+				type: 'post',
+				// codes가 배열이라 tranditional 옵션 넣어줘야함
+				traditional: true,
+				data: jsonData,
+				dataType: 'json',
+				success: function(data){
+					alert(data.result+'건의 상품을 삭제 했습니다.');
+					checkedProducts.parent().parent().remove();
+					aggrProduct();
+				}
+			});
+			
+			
+		});
+	});
+	
+	// 주문하기
+	$(function(){
+		
+		$('input[name=order]').click(function(){
+			
+			var checkedProducts = $('input[name=checkProduct]:checked');
+			
+			var codes = [];
+			
+			checkedProducts.each(function(i, product){
+				codes.push(product.value);
+			});
+			
+			var uid 	 = [[${session.sessMember.uid}]];
+			var count 	 = $('.info .count').text().replace(/,/g, '');
+			var price 	 = $('.info .price').text().replace(/,/g, '');
+			var dsicount = $('.info .dsicount').text().replace(/,/g, '');
+			var delivery = $('.info .delivery').text().replace(/,/g, '');
+			var point 	 = $('.info .point').text().replace(/,/g, '');
+			var total 	 = $('.info .total').text().replace(/,/g, '');
+			
+			var jsonData = {
+					"uid"	  : uid,
+					"count"	  : count,
+					"price"	  : price,
+					"dsicount": dsicount,
+					"delivery": delivery,
+					"point"	  : point,
+					"total"	  : total,
+					"codes"	  : codes
+			};
+			
+			// console.log(jsonData);
+			
+			$.ajax({
+				url: '/Kmarket/shop/order',
+				type: 'post',
+				// codes가 배열이라 tranditional 옵션 넣어줘야함
+				traditional: true,
+				data: jsonData,
+				dataType: 'json',
+				success: function(data){
+					
+					// 주문하기 페이지로 이동
+					location.href = '/Kmarket/shop/order?orderId='+data.orderId;
+					
+				}
+			});
+			
+		});
+		
+	});
+
+</script>
+
 <main>
     <!-- 카테고리/베스트 상품 영역 -->
     <aside>
@@ -21,7 +232,7 @@
           <table>
             <thead>
               <tr>
-                <th><input type="checkbox" name="all"></th>
+                <th><input type="checkbox" name="all" checked/>
                 <th>상품명</th>
                 <th>총수량</th>
                 <th>판매가</th>
@@ -36,7 +247,7 @@
                 <td colspan="7">장바구니에 상품이 없습니다.</td>
               </tr>
               <tr th:each="product:${products}">
-                <td><input type="checkbox" name=""></td>
+                <td><input type="checkbox" name="checkProduct" th:value="${product.code}" checked></td>
                 <td>
                   <article>
                     <a href="#">
@@ -52,9 +263,9 @@
                 <td class="price">[[${#numbers.formatInteger(product.price, 0, 'COMMA')}]]</td>
                 <td class="discount">[[${product.discount}]]</td>
                 <td class="point">[[${product.point}]]</td>
-                <td class="delivaery" th:if="${product.delivery} == 0">무료 배송</td>
-                <td class="delivaery" th:unless="${product.delivery} == 0">[[${#numbers.formatInteger(product.delivery, 0, 'COMMA')}]]</td>
-                <td class="total">[[${#numbers.formatInteger(product.total, 0, 'COMMA')}]]</td>
+                <td class="delivery" th:if="${product.delivery} == 0">무료배송</td>
+                <td class="delivery" th:unless="${product.delivery} == 0">[[${#numbers.formatInteger(product.delivery, 0, 'COMMA')}]]</td>
+                <td class="total">[[${#numbers.formatInteger((product.total + product.delivery), 0, 'COMMA')}]]</td>
               </tr>
             </tbody>
           </table>
@@ -67,30 +278,30 @@
         <table border="0">
           <tr>
             <td>상품수</td>
-            <td>1</td>
+            <td class="count">0</td>
           </tr>
           <tr>
             <td>상품금액</td>
-            <td>27,000</td>
+            <td class="price">0</td>
           </tr>
           <tr>
             <td>할인금액</td>
-            <td>-1,000</td>
+            <td class="discount">0</td>
           </tr>
           <tr>
             <td>배송비</td>
-            <td>0</td>
+            <td class="delivery">0</td>
           </tr>              
           <tr>
             <td>포인트</td>
-            <td>260</td>
+            <td class="point">0</td>
           </tr>
           <tr>
             <td>전체주문금액</td>
-            <td>26,000</td>
+            <td class="total">0</td>
           </tr>
         </table>
-        <input type="button" name="" value="주문하기">
+        <input type="button" name="order" value="주문하기">
 
       </div>
       
